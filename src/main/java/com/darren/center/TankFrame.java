@@ -2,6 +2,8 @@ package com.darren.center;
 
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -21,7 +23,11 @@ public class TankFrame extends Frame {
             setTitle("tank war");
             //设置可见
             setVisible(true);
-            //关闭事件监听
+
+            //监听键盘事件
+            addKeyListener(new MyKeyListener());
+
+            //监听关闭窗口事件
             addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
@@ -41,4 +47,20 @@ public class TankFrame extends Frame {
         x += 10;
         y += 10;
     }
+
+    class MyKeyListener extends KeyAdapter{
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            //键被按下
+            System.out.println("keyPressed");
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            //键被弹起
+            System.out.println("keyReleased");
+        }
+    }
+
 }
