@@ -19,11 +19,14 @@ public class Tank {
     private static final int SPEED = 5;
     //是否移动
     private boolean moving = false;
+    //将子弹传给windows
+    private TankFrame tankFrame = null;
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tankFrame = tankFrame;
     }
 
     public void paint(Graphics g) {
@@ -68,5 +71,12 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    /**
+     * 发射子弹
+     */
+    public void fire() {
+        tankFrame.bullet = new Bullet(this.x, this.y, this.dir);
     }
 }
