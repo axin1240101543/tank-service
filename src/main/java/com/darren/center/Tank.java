@@ -87,7 +87,14 @@ public class Tank {
                 break;
         }
 
-        if (random.nextInt(10) > 8) this.fire();
+        //只有敌方坦克概率随机发射子弹
+        if (this.group == Group.BAD && random.nextInt(100) > 95) this.fire();
+        //只有敌方随机改变方向
+        if (this.group == Group.BAD && random.nextInt(100) > 95) randomDir();
+    }
+
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
     public Dir getDir() {
