@@ -8,6 +8,7 @@ public class Main {
 
         while (true){
             Thread.sleep(50);
+            //默认调用paint方法
             tf.repaint();
         }
     }

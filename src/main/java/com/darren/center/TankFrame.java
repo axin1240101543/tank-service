@@ -14,11 +14,11 @@ public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 200, Dir.DOWN);
     Bullet bullet = new Bullet(200, 200, Dir.DOWN);
-
+    private static final int GAME_WIDTH = 800,GAME_HEIGHT = 800;
 
     public TankFrame(){
             //设置大小
-            setSize(800, 600);
+            setSize(GAME_WIDTH, GAME_HEIGHT);
             //不可改变大小
             setResizable(false);
             //设置标题
@@ -44,6 +44,30 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         myTank.paint(g);
         bullet.paint(g);
+    }
+
+
+    Image offScreenImage = null;
+    /**
+     * 处理双缓冲，解决闪烁问题
+     * update方法会在paint之前调用
+     *
+     * 内存中先创建一个和屏幕大小一致的图片，然后用图片的画笔将坦克和子弹画在图片上，
+     * 然后使用屏幕的画笔将整个图片画到屏幕上（将内存的内容复制到显存）。
+     * @param g
+     */
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null){
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.black);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage, 0, 0, null);
     }
 
     class MyKeyListener extends KeyAdapter{
