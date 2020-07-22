@@ -23,7 +23,7 @@ public class Bullet {
 
     private TankFrame tankFrame;
     //因为子弹没有删除，会发生内存泄露，所以要判断子弹超出windows就删除子弹
-    private boolean live = true;
+    private boolean living = true;
 
     public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
@@ -33,7 +33,7 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
-        if (!live) tankFrame.bullets.remove(this);
+        if (!living) tankFrame.bullets.remove(this);
         /*Color color = g.getColor();
         g.setColor(Color.red);
         g.fillOval(x, y, WIDTH, HEIGHT);
@@ -72,7 +72,19 @@ public class Bullet {
                 break;
         }
 
-        if (x < 0 || y < 0 || x > tankFrame.GAME_WIDTH || y > tankFrame.GAME_HEIGHT) live = false;
+        if (x < 0 || y < 0 || x > tankFrame.GAME_WIDTH || y > tankFrame.GAME_HEIGHT) living = false;
     }
 
+    public void collideWith(Tank tank) {
+        Rectangle rBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
+        Rectangle rTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
+        if (rBullet.intersects(rTank)){
+            tank.die();
+            this.die();
+        }
+    }
+
+    private void die() {
+        living = false;
+    }
 }
