@@ -4,36 +4,37 @@ import java.awt.*;
 
 /**
  * <h3>tank-service</h3>
- * <p>坦克</p>
+ * <p>子弹</p>
  *
  * @author : Darren
- * @date : 2020年07月22日 08:56:52
+ * @date : 2020年07月22日 09:23:33
  **/
-public class Tank {
+public class Bullet {
 
     //坐标
-    private int x = 200, y = 200;
+    private int x, y;
     //方向
-    private Dir dir = Dir.DOWN;
+    private Dir dir;
     //速度
-    private static final int SPEED = 5;
-    //是否移动
-    private boolean moving = false;
+    private static final int SPEED = 1;
+    //大小
+    private int width = 30, height=30;
 
-    public Tank(int x, int y, Dir dir) {
+    public Bullet(int x, int y, Dir dir) {
         this.x = x;
         this.y = y;
         this.dir = dir;
     }
 
     public void paint(Graphics g) {
-        g.fillRect(x, y,50,50);
+        Color color = g.getColor();
+        g.setColor(Color.red);
+        g.fillOval(x, y, width, height);
+        g.setColor(color);
         move();
     }
 
     private void move() {
-        //如果moving是false那么就静止
-        if (!moving) return;
         //根据按键的方向移动
         switch (dir) {
             case LEFT:
@@ -51,19 +52,4 @@ public class Tank {
         }
     }
 
-    public Dir getDir() {
-        return dir;
-    }
-
-    public void setDir(Dir dir) {
-        this.dir = dir;
-    }
-
-    public boolean isMoving() {
-        return moving;
-    }
-
-    public void setMoving(boolean moving) {
-        this.moving = moving;
-    }
 }
