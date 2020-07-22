@@ -6,6 +6,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 写一个新窗口
@@ -13,8 +15,9 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 200, Dir.DOWN, this);
-    Bullet bullet = new Bullet(200, 200, Dir.DOWN);
-    private static final int GAME_WIDTH = 800,GAME_HEIGHT = 800;
+    List<Bullet> bullets = new ArrayList<>();
+    //Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
+    final int GAME_WIDTH = 800,GAME_HEIGHT = 800;
 
     public TankFrame(){
             //设置大小
@@ -42,8 +45,18 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {
+        Color color = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("子弹的数量：" + bullets.size(), 10, 60);
+        g.setColor(color);
         myTank.paint(g);
-        bullet.paint(g);
+        //Exception in thread "AWT-EventQueue-0" java.util.ConcurrentModificationException
+        /*for (Bullet b : bullets) {
+            b.paint(g);
+        }*/
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).paint(g);
+        }
     }
 
 
@@ -125,7 +138,7 @@ public class TankFrame extends Frame {
                     br = false;
                     break;
 
-                case KeyEvent.VK_CONTROL:
+                case KeyEvent.VK_F2:
                     myTank.fire();
                     break;
                 default:

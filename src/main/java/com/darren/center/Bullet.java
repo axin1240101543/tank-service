@@ -16,17 +16,23 @@ public class Bullet {
     //方向
     private Dir dir;
     //速度
-    private static final int SPEED = 1;
+    private static final int SPEED = 10;
     //大小
     private int width = 30, height=30;
 
-    public Bullet(int x, int y, Dir dir) {
+    private TankFrame tankFrame;
+    //因为子弹没有删除，会发生内存泄露，所以要判断子弹超出windows就删除子弹
+    private boolean live = true;
+
+    public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tankFrame = tankFrame;
     }
 
     public void paint(Graphics g) {
+        if (!live) tankFrame.bullets.remove(this);
         Color color = g.getColor();
         g.setColor(Color.red);
         g.fillOval(x, y, width, height);
@@ -50,6 +56,8 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
+
+        if (x < 0 || y < 0 || x > tankFrame.GAME_WIDTH || y > tankFrame.GAME_HEIGHT) live = false;
     }
 
 }
