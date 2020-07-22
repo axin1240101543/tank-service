@@ -33,6 +33,6 @@ public class Explode {
 
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[step++], x, y , tankFrame);
-        if (step >= ResourceMgr.explodes.length) step = 0;
+        if (step >= ResourceMgr.explodes.length) tankFrame.explodes.remove(this);
     }
 }
