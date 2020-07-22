@@ -18,7 +18,8 @@ public class Bullet {
     //速度
     private static final int SPEED = 10;
     //大小
-    private int width = 30, height=30;
+    public static int WIDTH = ResourceMgr.bulletU.getWidth();
+    public static int HEIGHT = ResourceMgr.bulletU.getHeight();
 
     private TankFrame tankFrame;
     //因为子弹没有删除，会发生内存泄露，所以要判断子弹超出windows就删除子弹
@@ -33,10 +34,24 @@ public class Bullet {
 
     public void paint(Graphics g) {
         if (!live) tankFrame.bullets.remove(this);
-        Color color = g.getColor();
+        /*Color color = g.getColor();
         g.setColor(Color.red);
-        g.fillOval(x, y, width, height);
-        g.setColor(color);
+        g.fillOval(x, y, WIDTH, HEIGHT);
+        g.setColor(color);*/
+        switch (dir) {
+            case LEFT:
+                g.drawImage(ResourceMgr.bulletL, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.bulletU, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.bulletR, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                break;
+        }
         move();
     }
 
