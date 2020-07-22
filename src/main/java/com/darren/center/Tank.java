@@ -17,7 +17,7 @@ public class Tank {
     //方向
     private Dir dir = Dir.DOWN;
     //速度
-    private static final int SPEED = 1;
+    private static final int SPEED = 2;
     //是否移动
     private boolean moving = true;
     //将子弹传给windows
@@ -114,6 +114,9 @@ public class Tank {
         int bx = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int by = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.group, this.tankFrame));
+
+        //子弹开火的声音
+        if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
     }
 
 
