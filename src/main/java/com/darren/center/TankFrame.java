@@ -14,6 +14,7 @@ public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 200, Dir.DOWN);
 
+
     public TankFrame(){
             //设置大小
             setSize(800, 600);
@@ -23,10 +24,8 @@ public class TankFrame extends Frame {
             setTitle("tank war");
             //设置可见
             setVisible(true);
-
             //监听键盘事件
             addKeyListener(new MyKeyListener());
-
             //监听关闭窗口事件
             addWindowListener(new WindowAdapter() {
                 @Override
@@ -106,11 +105,16 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if (bu) myTank.setDir(Dir.UP);
-            if (bd) myTank.setDir(Dir.DOWN);
-            if (bl) myTank.setDir(Dir.LEFT);
-            if (br) myTank.setDir(Dir.RIGHT);
+            //如果上下左右键都没有按下，那么moving设置为false
+            if (!bu && !bd && !bl && !br){
+                myTank.setMoving(false);
+            }else{
+                myTank.setMoving(true);
+                if (bu) myTank.setDir(Dir.UP);
+                if (bd) myTank.setDir(Dir.DOWN);
+                if (bl) myTank.setDir(Dir.LEFT);
+                if (br) myTank.setDir(Dir.RIGHT);
+            }
         }
     }
-
 }

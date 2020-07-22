@@ -11,9 +11,14 @@ import java.awt.*;
  **/
 public class Tank {
 
+    //坐标
     private int x = 200, y = 200;
+    //方向
     private Dir dir = Dir.DOWN;
+    //速度
     private static final int SPEED = 10;
+    //是否移动
+    private boolean moving = false;
 
     public Tank(int x, int y, Dir dir) {
         this.x = x;
@@ -23,6 +28,13 @@ public class Tank {
 
     public void myPaint(Graphics g) {
         g.fillRect(x, y,50,50);
+        move();
+    }
+
+    private void move() {
+        //如果moving是false那么就静止
+        if (!moving) return;
+        //根据按键的方向移动
         switch (dir) {
             case LEFT:
                 x -= SPEED;
@@ -45,5 +57,13 @@ public class Tank {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 }
