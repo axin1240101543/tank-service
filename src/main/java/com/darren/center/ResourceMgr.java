@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * <h3>tank-service</h3>
- * <p>加载图片类</p>
+ * <p>加载图片</p>
  *
  * @author : Darren
  * @date : 2020年07月22日 15:38:08
