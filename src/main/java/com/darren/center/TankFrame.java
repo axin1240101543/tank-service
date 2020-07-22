@@ -20,6 +20,8 @@ public class TankFrame extends Frame {
     //Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
     final int GAME_WIDTH = 800,GAME_HEIGHT = 800;
 
+    Explode explode = new Explode(200, 200, this);
+
     public TankFrame(){
             //设置大小
             setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -70,6 +72,9 @@ public class TankFrame extends Frame {
                 bullets.get(i).collideWith(tanks.get(j));
             }
         }
+
+        //画出一个爆炸
+        explode.paint(g);
     }
 
 
