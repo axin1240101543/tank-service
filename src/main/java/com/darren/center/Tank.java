@@ -1,6 +1,7 @@
 package com.darren.center;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * <h3>tank-service</h3>
@@ -16,9 +17,9 @@ public class Tank {
     //方向
     private Dir dir = Dir.DOWN;
     //速度
-    private static final int SPEED = 5;
+    private static final int SPEED = 1;
     //是否移动
-    private boolean moving = false;
+    private boolean moving = true;
     //将子弹传给windows
     private TankFrame tankFrame = null;
     //大小
@@ -26,11 +27,16 @@ public class Tank {
     public static int HEIGHT = ResourceMgr.tankU.getHeight();
     //是否存活
     private boolean living = true;
+    //随机数
+    private Random random = new Random();
+    //将我方坦克和敌方坦克进行区分
+    private Group group = Group.BAD;
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -41,6 +47,7 @@ public class Tank {
         g.setColor(color);*/
         //g.drawImage(ResourceMgr.tankL, x, y, null);
 
+        //要移除list中的元素，否则会内存泄漏
         //if (!living) return;
         if (!living) tankFrame.tanks.remove(this);
 
@@ -79,6 +86,8 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+
+        if (random.nextInt(10) > 8) this.fire();
     }
 
     public Dir getDir() {
@@ -104,7 +113,7 @@ public class Tank {
         //计算子弹发出的位置
         int bx = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int by = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.tankFrame));
+        tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.group, this.tankFrame));
     }
 
 
@@ -126,5 +135,13 @@ public class Tank {
 
     public void die() {
         this.living = false;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

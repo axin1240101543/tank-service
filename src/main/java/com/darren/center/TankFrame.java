@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 400, Dir.DOWN, this);
+    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
     //Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
@@ -49,6 +49,7 @@ public class TankFrame extends Frame {
         Color color = g.getColor();
         g.setColor(Color.WHITE);
         g.drawString("子弹的数量：" + bullets.size(), 10, 60);
+        g.drawString("敌人的数量：" + tanks.size(), 10, 80);
         g.setColor(color);
         myTank.paint(g);
         //Exception in thread "AWT-EventQueue-0" java.util.ConcurrentModificationException
