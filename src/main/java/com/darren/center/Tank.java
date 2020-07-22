@@ -89,8 +89,18 @@ public class Tank {
 
         //只有敌方坦克概率随机发射子弹
         if (this.group == Group.BAD && random.nextInt(100) > 95) this.fire();
-        //只有敌方随机改变方向
+        //只有敌方坦克随机改变方向
         if (this.group == Group.BAD && random.nextInt(100) > 95) randomDir();
+
+        //便捷检测：敌方坦克撞墙的处理
+        boundsCheck();
+    }
+
+    private void boundsCheck() {
+        if (this.x < 2) x = 2;
+        if (this.y < 28) y = 28;
+        if(this.x > (TankFrame.GAME_WIDTH - Tank.WIDTH - 2)) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+        if(this.y > (TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2)) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
     }
 
     private void randomDir() {
