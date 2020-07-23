@@ -12,23 +12,38 @@ import java.util.Properties;
  **/
 public class PropertyMgr {
 
-    static Properties props = new Properties();
+    private static volatile Properties props;
 
-    static {
-        try {
-            props.load(PropertyMgr.class.getClassLoader().getResourceAsStream("config"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        };
+    private PropertyMgr() {
     }
 
-    public static Object get(String key){
-        if (props == null) return null;
+    public static Object getObj(String key){
+        if (props == null){
+            synchronized (PropertyMgr.class){
+                if (props == null){
+                    try {
+                        props = new Properties();
+                        props.load(PropertyMgr.class.getClassLoader().getResourceAsStream("config"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
         return props.get(key);
     }
 
+    public static int getInt(String key){
+        return Integer.valueOf(getObj(key).toString());
+    }
+
+    public static String getStr(String key){
+        return getObj(key).toString();
+    }
+
     public static void main(String[] args) {
-        System.out.println(props.get("initTankCount"));
+        System.out.println(PropertyMgr.getObj("initTankCount"));
+        System.out.println(PropertyMgr.getInt("initTankCount"));
     }
 
 }

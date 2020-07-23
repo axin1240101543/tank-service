@@ -16,7 +16,7 @@ public class Bullet {
     //方向
     private Dir dir;
     //速度
-    private static final int SPEED = 6;
+    private static final int SPEED = PropertyMgr.getInt("bulletSpeed");
     //大小
     public static int WIDTH = ResourceMgr.bulletU.getWidth();
     public static int HEIGHT = ResourceMgr.bulletU.getHeight();

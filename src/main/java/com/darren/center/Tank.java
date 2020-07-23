@@ -17,7 +17,7 @@ public class Tank {
     //方向
     private Dir dir = Dir.DOWN;
     //速度
-    private static final int SPEED = 2;
+    private static final int SPEED = PropertyMgr.getInt("tankSpeed");
     //是否移动
     private boolean moving = true;
     //将子弹传给windows
