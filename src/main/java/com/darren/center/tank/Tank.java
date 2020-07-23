@@ -13,15 +13,15 @@ import java.util.Random;
 public class Tank {
 
     //坐标
-    private int x = 200, y = 200;
+    int x = 200, y = 200;
     //方向
-    private Dir dir = Dir.DOWN;
+     Dir dir = Dir.DOWN;
     //速度
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
     //是否移动
     private boolean moving = true;
     //将子弹传给windows
-    private TankFrame tankFrame = null;
+    TankFrame tankFrame = null;
     //大小
     public static int WIDTH = ResourceMgr.getInstance().goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().goodTankU.getHeight();
@@ -30,11 +30,14 @@ public class Tank {
     //随机数
     private Random random = new Random();
     //将我方坦克和敌方坦克进行区分
-    private Group group = Group.BAD;
+    Group group = Group.BAD;
 
     //因为每次碰撞检测都会产生两个Rectangle对象，假如有n个子弹和m个坦克，
     // 那么产生的对象就是2*n*m，所以在坦克和子弹内部维护一个Rectangle来记录这个坦克和子弹的位置
     Rectangle rTank = new Rectangle();
+
+    //发射子弹的策略
+    FireStategy fireStategy;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
@@ -48,6 +51,18 @@ public class Tank {
         this.rTank.y = this.y;
         this.rTank.width = WIDTH;
         this.rTank.height = HEIGHT;
+
+        //我方坦克使用FourFireStategy策略，敌方坦克使用DefaultFireStategy
+        //遵循开闭原则，使用配置文件的方式，添加新的策略类之后修改配置文件即可
+        try {
+            if (group == Group.GOOD) {
+                fireStategy = (FireStategy)Class.forName(PropertyMgr.getStr("goodFs")).getDeclaredConstructor().newInstance();
+            } else{
+                fireStategy = (FireStategy)Class.forName(PropertyMgr.getStr("badFs")).getDeclaredConstructor().newInstance();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void paint(Graphics g) {
@@ -139,15 +154,18 @@ public class Tank {
 
     /**
      * 发射子弹
+     * 有两种方式
+     * 1、将发射策略作为成员变量
+     *  作用域不同，成员变量的作用域是整个类，而参数是本方法
+     *  FireStategy fireStategy = new DefaultFireStategy();
+     * 2、将发射策略作为参数传进来
+     *  每次new一个FireStategy传进来，可以直接做成单例传进来
+     *  public void fire(FireStategy fireStategy){
+     *      to do
+     *  }
      */
     public void fire() {
-        //计算子弹发出的位置
-        int bx = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int by = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.group, this.tankFrame));
-
-        //子弹开火的声音
-        if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
+        fireStategy.fire(this);
     }
 
 

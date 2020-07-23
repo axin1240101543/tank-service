@@ -43,6 +43,9 @@ public class Bullet {
         this.rBullet.y = this.y;
         this.rBullet.width = WIDTH;
         this.rBullet.height = HEIGHT;
+
+        //new出一颗子弹直接添加到子弹的集合中
+        tankFrame.bullets.add(this);
     }
 
     public void paint(Graphics g) {
