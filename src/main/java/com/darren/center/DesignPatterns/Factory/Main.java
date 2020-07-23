@@ -48,8 +48,10 @@ public class Main {
         Removeable broom3 = BroomFactory.create();
         broom3.go();
 
-        //任意定制产品一组
+        //任意定制产品一族
         //抽象工厂
+        //com.darren.center.DesignPatterns.Factory.AbstractFactory.Main
+
 
     }
 

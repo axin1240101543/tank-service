@@ -22,6 +22,12 @@ public class Strategy {
      *
      *
      * 策略模式封装的是做一件事儿不同的执行方式。
+     *
+     * 策略模式怎么应用到tank-service？
+     * 发射子弹的不同策略
+     * 1、单发
+     * 2、四发
+     * 3、核弹。。。
      * @param args
      */
     public static void main(String[] args) {
