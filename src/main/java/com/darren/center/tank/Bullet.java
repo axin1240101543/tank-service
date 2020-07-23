@@ -1,5 +1,10 @@
 package com.darren.center.tank;
 
+import com.darren.center.tank.factory.BaseBullet;
+import com.darren.center.tank.factory.DefaultFactory;
+import com.darren.center.tank.factory.GameFactory;
+import com.darren.center.tank.factory.RectFactory;
+
 import java.awt.*;
 
 /**
@@ -9,7 +14,7 @@ import java.awt.*;
  * @author : Darren
  * @date : 2020年07月22日 09:23:33
  **/
-public class Bullet {
+public class Bullet extends BaseBullet {
 
     //坐标
     private int x, y;
@@ -48,6 +53,7 @@ public class Bullet {
         tankFrame.bullets.add(this);
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) tankFrame.bullets.remove(this);
         /*Color color = g.getColor();
@@ -108,7 +114,8 @@ public class Bullet {
             //计算坦克爆炸的位置
             int ex = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int ey = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            tankFrame.explodes.add(new Explode(ex, ey, this.tankFrame));
+            //tankFrame.explodes.add(new Explode(ex, ey, this.tankFrame));
+            tankFrame.explodes.add(tankFrame.factory.createExplode(ex, ey, this.tankFrame));
         }
     }
 

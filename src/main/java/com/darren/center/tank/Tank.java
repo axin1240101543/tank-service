@@ -1,5 +1,7 @@
 package com.darren.center.tank;
 
+import com.darren.center.tank.factory.BaseTank;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -10,7 +12,7 @@ import java.util.Random;
  * @author : Darren
  * @date : 2020年07月22日 08:56:52
  **/
-public class Tank {
+public class Tank extends BaseTank {
 
     //坐标
     int x = 200, y = 200;
@@ -65,6 +67,7 @@ public class Tank {
         }
     }
 
+    @Override
     public void paint(Graphics g) {
         /*Color color = g.getColor();
         g.setColor(Color.yellow);
