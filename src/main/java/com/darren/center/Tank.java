@@ -32,12 +32,22 @@ public class Tank {
     //将我方坦克和敌方坦克进行区分
     private Group group = Group.BAD;
 
+    //因为每次碰撞检测都会产生两个Rectangle对象，假如有n个子弹和m个坦克，
+    // 那么产生的对象就是2*n*m，所以在坦克和子弹内部维护一个Rectangle来记录这个坦克和子弹的位置
+    Rectangle rTank = new Rectangle();
+
     public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        //对内部维护的Rectangle进行初始化
+        this.rTank.x = this.x;
+        this.rTank.y = this.y;
+        this.rTank.width = WIDTH;
+        this.rTank.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -94,6 +104,10 @@ public class Tank {
 
         //便捷检测：敌方坦克撞墙的处理
         boundsCheck();
+
+        //对内部维护的Rectangle进行更新
+        this.rTank.x = this.x;
+        this.rTank.y = this.y;
     }
 
     private void boundsCheck() {

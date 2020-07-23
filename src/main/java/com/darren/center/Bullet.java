@@ -27,12 +27,22 @@ public class Bullet {
     //将我方坦克子弹和敌方坦克子弹进行区分
     private Group group = Group.BAD;
 
+    //因为每次碰撞检测都会产生两个Rectangle对象，假如有n个子弹和m个坦克，
+    // 那么产生的对象就是2*n*m，所以在坦克和子弹内部维护一个Rectangle来记录这个坦克和子弹的位置
+    Rectangle rBullet = new Rectangle();
+
+
     public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+        //对内部维护的Rectangle进行初始化
+        this.rBullet.x = this.x;
+        this.rBullet.y = this.y;
+        this.rBullet.width = WIDTH;
+        this.rBullet.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -75,6 +85,10 @@ public class Bullet {
                 break;
         }
 
+        //对内部维护的Rectangle进行更新
+        this.rBullet.x = this.x;
+        this.rBullet.y = this.y;
+
         if (x < 0 || y < 0 || x > tankFrame.GAME_WIDTH || y > tankFrame.GAME_HEIGHT) living = false;
     }
 
@@ -83,9 +97,9 @@ public class Bullet {
         if (this.group == tank.getGroup()) return;
 
         //TODO：用一个rectangle来记录子弹的位置
-        Rectangle rBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-        Rectangle rTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
-        if (rBullet.intersects(rTank)){
+        /*Rectangle rBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
+        Rectangle rTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);*/
+        if (rBullet.intersects(tank.rTank)){
             tank.die();
             this.die();
             //计算坦克爆炸的位置

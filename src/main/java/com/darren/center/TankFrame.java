@@ -149,7 +149,7 @@ public class TankFrame extends Frame {
             setMainTankDir();
 
             //坦克开动的声音
-            new Thread(()->new Audio("audio/tank_move.wav").play()).start();
+            //new Thread(()->new Audio("audio/tank_move.wav").play()).start();
         }
 
         @Override
