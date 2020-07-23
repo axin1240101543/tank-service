@@ -1,4 +1,4 @@
-package com.darren.center;
+package com.darren.center.tank;
 
 import javax.sound.sampled.*;
 import java.io.IOException;

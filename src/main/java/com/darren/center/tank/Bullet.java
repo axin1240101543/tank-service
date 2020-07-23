@@ -1,4 +1,4 @@
-package com.darren.center;
+package com.darren.center.tank;
 
 import java.awt.*;
 
@@ -18,8 +18,8 @@ public class Bullet {
     //速度
     private static final int SPEED = PropertyMgr.getInt("bulletSpeed");
     //大小
-    public static int WIDTH = ResourceMgr.bulletU.getWidth();
-    public static int HEIGHT = ResourceMgr.bulletU.getHeight();
+    public static int WIDTH = ResourceMgr.getInstance().bulletU.getWidth();
+    public static int HEIGHT = ResourceMgr.getInstance().bulletU.getHeight();
 
     private TankFrame tankFrame;
     //因为子弹没有删除，会发生内存泄露，所以要判断子弹超出windows就删除子弹
@@ -53,16 +53,16 @@ public class Bullet {
         g.setColor(color);*/
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
+                g.drawImage(ResourceMgr.getInstance().bulletL, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
+                g.drawImage(ResourceMgr.getInstance().bulletU, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
+                g.drawImage(ResourceMgr.getInstance().bulletR, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                g.drawImage(ResourceMgr.getInstance().bulletD, x, y, null);
                 break;
         }
         move();

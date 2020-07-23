@@ -1,4 +1,4 @@
-package com.darren.center;
+package com.darren.center.tank;
 
 import java.awt.*;
 import java.util.Random;
@@ -23,8 +23,8 @@ public class Tank {
     //将子弹传给windows
     private TankFrame tankFrame = null;
     //大小
-    public static int WIDTH = ResourceMgr.goodTankU.getWidth();
-    public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
+    public static int WIDTH = ResourceMgr.getInstance().goodTankU.getWidth();
+    public static int HEIGHT = ResourceMgr.getInstance().goodTankU.getHeight();
     //是否存活
     private boolean living = true;
     //随机数
@@ -63,16 +63,16 @@ public class Tank {
 
         switch (dir) {
             case LEFT:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.getInstance().goodTankL : ResourceMgr.getInstance().badTankL, x, y, null);
                 break;
             case UP:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.getInstance().goodTankU : ResourceMgr.getInstance().badTankU, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.getInstance().goodTankR : ResourceMgr.getInstance().badTankR, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.getInstance().goodTankD : ResourceMgr.getInstance().badTankD, x, y, null);
                 break;
         }
         move();

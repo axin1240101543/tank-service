@@ -1,4 +1,4 @@
-package com.darren.center;
+package com.darren.center.tank;
 
 import java.io.IOException;
 import java.util.Properties;

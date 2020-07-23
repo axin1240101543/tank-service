@@ -14,7 +14,7 @@
 
 #### 使用说明
 
-1.  单例设计模式 PropertyMgr 
+1.  单例设计模式 PropertyMgr ResourceMgr
 
 #### 参与贡献
 

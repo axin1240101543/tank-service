@@ -1,4 +1,4 @@
-package com.darren.center;
+package com.darren.center.tank;
 
 import java.awt.*;
 
@@ -14,8 +14,8 @@ public class Explode {
     //坐标
     private int x, y;
     //大小
-    public static int WIDTH = ResourceMgr.explodes[0].getWidth();
-    public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
+    public static int WIDTH = ResourceMgr.getInstance().explodes[0].getWidth();
+    public static int HEIGHT = ResourceMgr.getInstance().explodes[0].getHeight();
 
     private TankFrame tankFrame;
     private boolean living = true;
@@ -32,7 +32,7 @@ public class Explode {
     }
 
     public void paint(Graphics g) {
-        g.drawImage(ResourceMgr.explodes[step++], x, y , tankFrame);
-        if (step >= ResourceMgr.explodes.length) tankFrame.explodes.remove(this);
+        g.drawImage(ResourceMgr.getInstance().explodes[step++], x, y , tankFrame);
+        if (step >= ResourceMgr.getInstance().explodes.length) tankFrame.explodes.remove(this);
     }
 }
