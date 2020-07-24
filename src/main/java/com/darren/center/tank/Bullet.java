@@ -9,7 +9,7 @@ import java.awt.*;
  * @author : Darren
  * @date : 2020年07月22日 09:23:33
  **/
-public class Bullet {
+public class Bullet extends GameObject{
 
     //坐标
     private int x, y;
@@ -21,15 +21,15 @@ public class Bullet {
     public static int WIDTH = ResourceMgr.getInstance().bulletU.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().bulletU.getHeight();
 
-    private GameModel gm;
+    public GameModel gm;
     //因为子弹没有删除，会发生内存泄露，所以要判断子弹超出windows就删除子弹
     private boolean living = true;
     //将我方坦克子弹和敌方坦克子弹进行区分
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     //因为每次碰撞检测都会产生两个Rectangle对象，假如有n个子弹和m个坦克，
     // 那么产生的对象就是2*n*m，所以在坦克和子弹内部维护一个Rectangle来记录这个坦克和子弹的位置
-    Rectangle rBullet = new Rectangle();
+    public Rectangle rBullet = new Rectangle();
 
 
     public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
@@ -45,11 +45,12 @@ public class Bullet {
         this.rBullet.height = HEIGHT;
 
         //new出一颗子弹直接添加到子弹的集合中
-        gm.bullets.add(this);
+        gm.add(this);
     }
 
+    @Override
     public void paint(Graphics g) {
-        if (!living) gm.bullets.remove(this);
+        if (!living) gm.remove(this);
         /*Color color = g.getColor();
         g.setColor(Color.red);
         g.fillOval(x, y, WIDTH, HEIGHT);
@@ -108,11 +109,11 @@ public class Bullet {
             //计算坦克爆炸的位置
             int ex = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int ey = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gm.explodes.add(new Explode(ex, ey, gm));
+            gm.add(new Explode(ex, ey, gm));
         }
     }
 
-    private void die() {
+    public void die() {
         living = false;
     }
 }

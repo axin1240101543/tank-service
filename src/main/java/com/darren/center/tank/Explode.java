@@ -9,7 +9,7 @@ import java.awt.*;
  * @author : Darren
  * @date : 2020年07月22日 09:23:33
  **/
-public class Explode {
+public class Explode extends GameObject{
 
     //坐标
     private int x, y;
@@ -31,9 +31,10 @@ public class Explode {
         new Thread(()->new Audio("audio/explode.wav").play()).start();
     }
 
+    @Override
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.getInstance().explodes[step++], x, y , null);
         if (step >= ResourceMgr.getInstance().explodes.length)
-            gm.explodes.remove(this);
+            gm.remove(this);
     }
 }

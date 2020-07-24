@@ -39,7 +39,7 @@ public class ResourceMgr {
             resource.badTankD = ImageUtil.rotateImage(resource.badTankU, 180);
 
             //子弹的四个方向
-            resource.bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.gif"));
+            resource.bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
             resource.bulletL = ImageUtil.rotateImage(resource.bulletU, -90);
             resource.bulletR = ImageUtil.rotateImage(resource.bulletU, 90);
             resource.bulletD = ImageUtil.rotateImage(resource.bulletU, 180);

@@ -1,5 +1,7 @@
 package com.darren.center.tank;
 
+import com.darren.center.tank.strategy.FireStategy;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -10,18 +12,21 @@ import java.util.Random;
  * @author : Darren
  * @date : 2020年07月22日 08:56:52
  **/
-public class Tank {
+public class Tank extends GameObject{
 
     //坐标
-    int x = 200, y = 200;
+    public int x = 200, y = 200;
+    //上一次的坐标，当敌方坦克相撞时，回到此坐标
+    public int oldX, oldY;
+
     //方向
-     Dir dir = Dir.DOWN;
+    public Dir dir = Dir.DOWN;
     //速度
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
     //是否移动
     private boolean moving = true;
     //将子弹传给windows
-    GameModel gm = null;
+    public GameModel gm = null;
     //大小
     public static int WIDTH = ResourceMgr.getInstance().goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().goodTankU.getHeight();
@@ -30,11 +35,11 @@ public class Tank {
     //随机数
     private Random random = new Random();
     //将我方坦克和敌方坦克进行区分
-    Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     //因为每次碰撞检测都会产生两个Rectangle对象，假如有n个子弹和m个坦克，
     // 那么产生的对象就是2*n*m，所以在坦克和子弹内部维护一个Rectangle来记录这个坦克和子弹的位置
-    Rectangle rTank = new Rectangle();
+    public Rectangle rTank = new Rectangle();
 
     //发射子弹的策略
     FireStategy fireStategy;
@@ -65,10 +70,11 @@ public class Tank {
         }
     }
 
+    @Override
     public void paint(Graphics g) {
 
         //要移除list中的元素，否则会内存泄漏
-        if (!living) gm.tanks.remove(this);
+        if (!living) gm.remove(this);
 
         switch (dir) {
             case LEFT:
@@ -88,6 +94,10 @@ public class Tank {
     }
 
     private void move() {
+        //记录上一次的坐标
+        oldX = this.x;
+        oldY = this.y;
+
         //如果moving是false那么就静止
         if (!moving) return;
         //根据按键的方向移动
@@ -160,6 +170,14 @@ public class Tank {
      */
     public void fire() {
         fireStategy.fire(this);
+    }
+
+    /**
+     * 当敌方坦克相撞时, 回到上一次的坐标
+     */
+    public void backDir(){
+        this.x = this.oldX;
+        this.y = this.oldY;
     }
 
 

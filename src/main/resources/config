@@ -5,5 +5,5 @@ bulletSpeed=10
 gameWidth=1080
 gameHeight=960
 #fireStrategy
-goodFs=com.darren.center.tank.FourFireStategy
-badFs=com.darren.center.tank.DefaultFireStategy
+goodFs=com.darren.center.tank.strategy.FourFireStategy
+badFs=com.darren.center.tank.strategy.DefaultFireStategy

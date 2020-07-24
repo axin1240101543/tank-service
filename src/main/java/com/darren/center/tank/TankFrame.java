@@ -126,7 +126,7 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_RIGHT:
                     br = false;
                     break;
-
+                //弹起*键打子弹
                 case KeyEvent.VK_F2:
                     gm.gatMainTank().fire();
                     break;
@@ -136,6 +136,9 @@ public class TankFrame extends Frame {
             setMainTankDir();
         }
 
+        /**
+         * 设置主坦克的方向
+         */
         private void setMainTankDir() {
             Tank myTank = gm.gatMainTank();
             //如果上下左右键都没有按下，那么moving设置为false
