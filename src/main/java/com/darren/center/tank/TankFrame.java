@@ -16,15 +16,21 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
+    //我方坦克
+    //Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
+    BaseTank myTank = null;
+
     public List<BaseBullet> bullets = new ArrayList<>();
-    public List<Tank> tanks = new ArrayList<>();
+    public List<BaseTank> tanks = new ArrayList<>();
     public List<BaseExplode> explodes = new ArrayList<>();
     //Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
     public static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth");
     public static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
 
-    public GameFactory factory = new RectFactory();
+    //敌方坦克数量
+    int initTankCount =  PropertyMgr.getInt("initTankCount");
+
+    public GameFactory factory = PropertyMgr.getInstance("gameFactory");
     //Explode explode = new Explode(200, 200, this);
 
     public TankFrame(){
@@ -45,7 +51,18 @@ public class TankFrame extends Frame {
                     System.exit(0);
                 }
             });
+
+        //初始化我方坦克
+        myTank = factory.createTank(200, 400, Dir.DOWN, Group.GOOD, this);
+
+        //初始化敌方坦克
+        for (int i = 0; i < initTankCount; i++) {
+            tanks.add(factory.createTank(50 + i*80, 200, Dir.DOWN, Group.BAD, this));
+        }
     }
+
+    //处理初次加载时调用paint方法myTank为null的问题
+    boolean b = false;
 
     /**
      * 窗口重新绘制的时候自动调用
@@ -59,9 +76,10 @@ public class TankFrame extends Frame {
         g.drawString("敌人的数量：" + tanks.size(), 10, 80);
         g.drawString("爆炸的数量：" + explodes.size(), 10, 100);
         g.setColor(color);
-
         //画出我方坦克
-        myTank.paint(g);
+        if (b) myTank.paint(g);
+        else b = true;
+
         //Exception in thread "AWT-EventQueue-0" java.util.ConcurrentModificationException
         /*for (Bullet b : bullets) {
             b.paint(g);
@@ -187,13 +205,13 @@ public class TankFrame extends Frame {
         private void setMainTankDir() {
             //如果上下左右键都没有按下，那么moving设置为false
             if (!bu && !bd && !bl && !br){
-                myTank.setMoving(false);
+                myTank.moving = false;
             }else{
-                myTank.setMoving(true);
-                if (bu) myTank.setDir(Dir.UP);
-                if (bd) myTank.setDir(Dir.DOWN);
-                if (bl) myTank.setDir(Dir.LEFT);
-                if (br) myTank.setDir(Dir.RIGHT);
+                myTank.moving = true;
+                if (bu) myTank.dir = Dir.UP;
+                if (bd) myTank.dir = Dir.DOWN;
+                if (bl) myTank.dir = Dir.LEFT;
+                if (br) myTank.dir = Dir.RIGHT;
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.darren.center.tank;
 
+import com.darren.center.tank.factory.BaseTank;
+
 /**
  * <h3>tank-service</h3>
  * <p>发射四颗子弹的策略</p>
@@ -7,10 +9,10 @@ package com.darren.center.tank;
  * @author : Darren
  * @date : 2020年07月23日 15:39:05
  **/
-public class FourFireStategy implements FireStategy{
+public class FourFireStrategy implements FireStategy{
 
     @Override
-    public void fire(Tank tank) {
+    public void fire(BaseTank tank) {
         //计算子弹发出的位置
         int bx = tank.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int by = tank.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;

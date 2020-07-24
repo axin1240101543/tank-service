@@ -1,6 +1,7 @@
 package com.darren.center.tank;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 /**
@@ -39,6 +40,23 @@ public class PropertyMgr {
 
     public static String getStr(String key){
         return getObj(key).toString();
+    }
+
+    public static <T>T getInstance(String key){
+        try {
+            return (T)Class.forName(PropertyMgr.getStr(key)).getDeclaredConstructor().newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String[] args) {

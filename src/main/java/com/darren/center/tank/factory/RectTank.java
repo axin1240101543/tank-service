@@ -1,23 +1,23 @@
-package com.darren.center.tank;
+package com.darren.center.tank.factory;
 
-import com.darren.center.tank.factory.BaseTank;
+import com.darren.center.tank.*;
 
 import java.awt.*;
 import java.util.Random;
 
 /**
  * <h3>tank-service</h3>
- * <p>坦克</p>
+ * <p>方形坦克</p>
  *
  * @author : Darren
- * @date : 2020年07月22日 08:56:52
+ * @date : 2020年07月24日 09:22:23
  **/
-public class Tank extends BaseTank {
+public class RectTank extends BaseTank{
 
     //坐标
     //int x = 200, y = 200;
     //方向
-     //Dir dir = Dir.DOWN;
+    //Dir dir = Dir.DOWN;
     //速度
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
     //是否移动
@@ -41,7 +41,7 @@ public class Tank extends BaseTank {
     //发射子弹的策略
     FireStategy fireStategy;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public RectTank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -79,7 +79,7 @@ public class Tank extends BaseTank {
         //if (!living) return;
         if (!living) tankFrame.tanks.remove(this);
 
-        switch (dir) {
+        /*switch (dir) {
             case LEFT:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.getInstance().goodTankL : ResourceMgr.getInstance().badTankL, x, y, null);
                 break;
@@ -92,7 +92,12 @@ public class Tank extends BaseTank {
             case DOWN:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.getInstance().goodTankD : ResourceMgr.getInstance().badTankD, x, y, null);
                 break;
-        }
+        }*/
+
+        Color color = g.getColor();
+        g.setColor(this.group == Group.GOOD ? Color.RED : Color.BLUE);
+        g.fillRect(x, y, 40, 40);
+        g.setColor(color);
         move();
     }
 
@@ -186,4 +191,5 @@ public class Tank extends BaseTank {
     public void setGroup(Group group) {
         this.group = group;
     }
+
 }

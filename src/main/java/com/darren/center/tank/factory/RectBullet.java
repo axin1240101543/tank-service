@@ -103,9 +103,9 @@ public class RectBullet extends BaseBullet{
     }
 
     @Override
-    public void collideWith(Tank tank) {
+    public void collideWith(BaseTank tank) {
         //自己不伤害自己
-        if (this.group == tank.getGroup()) return;
+        if (this.group == tank.group) return;
 
         //TODO：用一个rectangle来记录子弹的位置
         /*Rectangle rBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
@@ -115,8 +115,8 @@ public class RectBullet extends BaseBullet{
             this.die();
             //使用抽象工厂来创建爆炸
             //计算坦克爆炸的位置
-            int ex = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-            int ey = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+            int ex = tank.x + Tank.WIDTH/2 - Explode.WIDTH/2;
+            int ey = tank.y + Tank.HEIGHT/2 - Explode.HEIGHT/2;
             //tankFrame.explodes.add(new Explode(ex, ey, this.tankFrame));
             tankFrame.explodes.add(tankFrame.factory.createExplode(ex, ey, this.tankFrame));
         }
