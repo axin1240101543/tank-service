@@ -21,7 +21,7 @@ public class Bullet {
     public static int WIDTH = ResourceMgr.getInstance().bulletU.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().bulletU.getHeight();
 
-    private TankFrame tankFrame;
+    private GameModel gm;
     //因为子弹没有删除，会发生内存泄露，所以要判断子弹超出windows就删除子弹
     private boolean living = true;
     //将我方坦克子弹和敌方坦克子弹进行区分
@@ -32,12 +32,12 @@ public class Bullet {
     Rectangle rBullet = new Rectangle();
 
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gm = gm;
         //对内部维护的Rectangle进行初始化
         this.rBullet.x = this.x;
         this.rBullet.y = this.y;
@@ -45,11 +45,11 @@ public class Bullet {
         this.rBullet.height = HEIGHT;
 
         //new出一颗子弹直接添加到子弹的集合中
-        tankFrame.bullets.add(this);
+        gm.bullets.add(this);
     }
 
     public void paint(Graphics g) {
-        if (!living) tankFrame.bullets.remove(this);
+        if (!living) gm.bullets.remove(this);
         /*Color color = g.getColor();
         g.setColor(Color.red);
         g.fillOval(x, y, WIDTH, HEIGHT);
@@ -92,7 +92,7 @@ public class Bullet {
         this.rBullet.x = this.x;
         this.rBullet.y = this.y;
 
-        if (x < 0 || y < 0 || x > tankFrame.GAME_WIDTH || y > tankFrame.GAME_HEIGHT) living = false;
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
     }
 
     public void collideWith(Tank tank) {
@@ -108,7 +108,7 @@ public class Bullet {
             //计算坦克爆炸的位置
             int ex = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int ey = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            tankFrame.explodes.add(new Explode(ex, ey, this.tankFrame));
+            gm.explodes.add(new Explode(ex, ey, gm));
         }
     }
 

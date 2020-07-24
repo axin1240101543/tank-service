@@ -17,22 +17,23 @@ public class Explode {
     public static int WIDTH = ResourceMgr.getInstance().explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().explodes[0].getHeight();
 
-    private TankFrame tankFrame;
+    private GameModel gm;
     private boolean living = true;
 
     private int step = 0;
 
-    public Explode(int x, int y, TankFrame tankFrame) {
+    public Explode(int x, int y, GameModel gm) {
         this.x = x;
         this.y = y;
-        this.tankFrame = tankFrame;
+        this.gm = gm;
 
         //new Audio("audio/explode.wav").start();
         new Thread(()->new Audio("audio/explode.wav").play()).start();
     }
 
     public void paint(Graphics g) {
-        g.drawImage(ResourceMgr.getInstance().explodes[step++], x, y , tankFrame);
-        if (step >= ResourceMgr.getInstance().explodes.length) tankFrame.explodes.remove(this);
+        g.drawImage(ResourceMgr.getInstance().explodes[step++], x, y , null);
+        if (step >= ResourceMgr.getInstance().explodes.length)
+            gm.explodes.remove(this);
     }
 }

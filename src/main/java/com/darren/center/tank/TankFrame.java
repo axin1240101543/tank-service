@@ -6,23 +6,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 写一个新窗口
  */
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
-    List<Bullet> bullets = new ArrayList<>();
-    List<Tank> tanks = new ArrayList<>();
-    List<Explode> explodes = new ArrayList<>();
-    //Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
+    GameModel gm = new GameModel();
     static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth");
     static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
-
-    //Explode explode = new Explode(200, 200, this);
 
     public TankFrame(){
             //设置大小
@@ -50,44 +42,7 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量：" + bullets.size(), 10, 60);
-        g.drawString("敌人的数量：" + tanks.size(), 10, 80);
-        g.drawString("爆炸的数量：" + explodes.size(), 10, 100);
-        g.setColor(color);
-
-        //画出我方坦克
-        myTank.paint(g);
-        //Exception in thread "AWT-EventQueue-0" java.util.ConcurrentModificationException
-        /*for (Bullet b : bullets) {
-            b.paint(g);
-        }*/
-
-        //画出子弹
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
-        }
-
-        //画出敌方坦克
-        for (int i = 0; i < tanks.size(); i++) {
-            tanks.get(i).paint(g);
-        }
-
-        //画出爆炸
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
-
-        //碰撞检测：当子弹撞上坦克，子弹死亡，坦克死亡
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < tanks.size(); j++) {
-                bullets.get(i).collideWith(tanks.get(j));
-            }
-        }
-
-        //画出一个爆炸
-        //explode.paint(g);
+        gm.paint(g);
     }
 
 
@@ -173,7 +128,7 @@ public class TankFrame extends Frame {
                     break;
 
                 case KeyEvent.VK_F2:
-                    myTank.fire();
+                    gm.gatMainTank().fire();
                     break;
                 default:
                     break;
@@ -182,6 +137,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
+            Tank myTank = gm.gatMainTank();
             //如果上下左右键都没有按下，那么moving设置为false
             if (!bu && !bd && !bl && !br){
                 myTank.setMoving(false);

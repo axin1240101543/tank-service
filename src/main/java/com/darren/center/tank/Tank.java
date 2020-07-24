@@ -21,7 +21,7 @@ public class Tank {
     //是否移动
     private boolean moving = true;
     //将子弹传给windows
-    TankFrame tankFrame = null;
+    GameModel gm = null;
     //大小
     public static int WIDTH = ResourceMgr.getInstance().goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().goodTankU.getHeight();
@@ -39,12 +39,12 @@ public class Tank {
     //发射子弹的策略
     FireStategy fireStategy;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gm = gm;
 
         //对内部维护的Rectangle进行初始化
         this.rTank.x = this.x;
@@ -66,15 +66,9 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        /*Color color = g.getColor();
-        g.setColor(Color.yellow);
-        g.fillRect(x, y,50,50);
-        g.setColor(color);*/
-        //g.drawImage(ResourceMgr.tankL, x, y, null);
 
         //要移除list中的元素，否则会内存泄漏
-        //if (!living) return;
-        if (!living) tankFrame.tanks.remove(this);
+        if (!living) gm.tanks.remove(this);
 
         switch (dir) {
             case LEFT:
@@ -117,7 +111,7 @@ public class Tank {
         //只有敌方坦克随机改变方向
         if (this.group == Group.BAD && random.nextInt(100) > 95) randomDir();
 
-        //便捷检测：敌方坦克撞墙的处理
+        //边界检测：敌方坦克撞墙的处理
         boundsCheck();
 
         //对内部维护的Rectangle进行更新
