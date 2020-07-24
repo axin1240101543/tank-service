@@ -18,7 +18,7 @@ public class RectFactory extends GameFactory {
 
     @Override
     public BaseBullet createBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
-        return null;
+        return new RectBullet(x, y, dir, group, tankFrame);
     }
 
     @Override

@@ -1,20 +1,17 @@
-package com.darren.center.tank;
+package com.darren.center.tank.factory;
 
-import com.darren.center.tank.factory.BaseBullet;
-import com.darren.center.tank.factory.DefaultFactory;
-import com.darren.center.tank.factory.GameFactory;
-import com.darren.center.tank.factory.RectFactory;
+import com.darren.center.tank.*;
 
 import java.awt.*;
 
 /**
  * <h3>tank-service</h3>
- * <p>子弹</p>
+ * <p>方形子弹</p>
  *
  * @author : Darren
- * @date : 2020年07月22日 09:23:33
+ * @date : 2020年07月24日 08:50:40
  **/
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet{
 
     //坐标
     private int x, y;
@@ -37,7 +34,7 @@ public class Bullet extends BaseBullet {
     Rectangle rBullet = new Rectangle();
 
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -60,7 +57,7 @@ public class Bullet extends BaseBullet {
         g.setColor(Color.red);
         g.fillOval(x, y, WIDTH, HEIGHT);
         g.setColor(color);*/
-        switch (dir) {
+        /*switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.getInstance().bulletL, x, y, null);
                 break;
@@ -73,7 +70,11 @@ public class Bullet extends BaseBullet {
             case DOWN:
                 g.drawImage(ResourceMgr.getInstance().bulletD, x, y, null);
                 break;
-        }
+        }*/
+        Color color = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, 20, 20);
+        g.setColor(color);
         move();
     }
 
@@ -124,4 +125,5 @@ public class Bullet extends BaseBullet {
     private void die() {
         living = false;
     }
+
 }

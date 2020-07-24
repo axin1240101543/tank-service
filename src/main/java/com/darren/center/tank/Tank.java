@@ -36,7 +36,7 @@ public class Tank extends BaseTank {
 
     //因为每次碰撞检测都会产生两个Rectangle对象，假如有n个子弹和m个坦克，
     // 那么产生的对象就是2*n*m，所以在坦克和子弹内部维护一个Rectangle来记录这个坦克和子弹的位置
-    Rectangle rTank = new Rectangle();
+    public Rectangle rTank = new Rectangle();
 
     //发射子弹的策略
     FireStategy fireStategy;

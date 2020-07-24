@@ -1,10 +1,7 @@
 package com.darren.center.tank;
 
 
-import com.darren.center.tank.factory.BaseExplode;
-import com.darren.center.tank.factory.DefaultFactory;
-import com.darren.center.tank.factory.GameFactory;
-import com.darren.center.tank.factory.RectFactory;
+import com.darren.center.tank.factory.*;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -20,14 +17,14 @@ import java.util.List;
 public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
-    public List<Bullet> bullets = new ArrayList<>();
+    public List<BaseBullet> bullets = new ArrayList<>();
     public List<Tank> tanks = new ArrayList<>();
     public List<BaseExplode> explodes = new ArrayList<>();
     //Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
-    static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth");
-    static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
+    public static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth");
+    public static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
 
-    GameFactory factory = new DefaultFactory();
+    public GameFactory factory = new RectFactory();
     //Explode explode = new Explode(200, 200, this);
 
     public TankFrame(){
@@ -156,7 +153,7 @@ public class TankFrame extends Frame {
             setMainTankDir();
 
             //坦克开动的声音
-            new Thread(()->new Audio("audio/tank_move.wav").play()).start();
+            //new Thread(()->new Audio("audio/tank_move.wav").play()).start();
         }
 
         @Override
