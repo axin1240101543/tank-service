@@ -15,12 +15,12 @@ import com.darren.center.tank.Tank;
 public class BulletTankCollide implements Collider<GameObject>{
 
     @Override
-    public void collide(GameObject o1, GameObject o2) {
+    public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Bullet && o2 instanceof Tank){
             Bullet bullet = (Bullet) o1;
             Tank tank = (Tank) o2;
             //自己不伤害自己
-            if (bullet.group == tank.getGroup()) return;
+            if (bullet.group == tank.getGroup()) return false;
 
             if (bullet.rBullet.intersects(tank.rTank)){
                 tank.die();
@@ -29,12 +29,11 @@ public class BulletTankCollide implements Collider<GameObject>{
                 int ex = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
                 int ey = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
                 bullet.gm.add(new Explode(ex, ey, bullet.gm));
+                return true;
             }
         }else if (o1 instanceof Tank && o2 instanceof Bullet){
-            collide(o2, o1);
-        }else{
-            return;
+           return collide(o2, o1);
         }
-
+        return false;
     }
 }

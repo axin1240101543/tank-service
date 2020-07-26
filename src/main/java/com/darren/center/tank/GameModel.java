@@ -24,8 +24,7 @@ public class GameModel {
 
     List<GameObject> objects = new ArrayList<>();
 
-    Collider collider1 = new BulletTankCollide();
-    Collider collider2 = new TankTankCollide();
+    ColliderChain colliderChain = new ColliderChain();
 
     public void add(GameObject object){
         objects.add(object);
@@ -69,8 +68,9 @@ public class GameModel {
             for (int j = 1; j < objects.size(); j++) {
                 GameObject gameObject1 = objects.get(i);
                 GameObject gameObject2 = objects.get(j);
-                collider1.collide(gameObject1, gameObject2);
-                collider2.collide(gameObject1, gameObject2);
+                //第一种方式是直接遍历colliderChain
+                //第二种方式是放在colliderChain中去处理（推荐）
+                colliderChain.collide(gameObject1, gameObject2);
             }
         }
     }

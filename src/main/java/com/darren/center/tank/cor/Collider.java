@@ -9,6 +9,12 @@ package com.darren.center.tank.cor;
  **/
 public interface Collider<T> {
 
-    void collide(T o1, T o2);
+    /**
+     *
+     * @param o1
+     * @param o2
+     * @return  发生碰撞 true  没有发生碰撞 false
+     */
+    boolean collide(T o1, T o2);
 
 }
