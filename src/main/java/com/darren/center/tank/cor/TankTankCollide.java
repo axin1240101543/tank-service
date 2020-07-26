@@ -1,7 +1,5 @@
 package com.darren.center.tank.cor;
 
-import com.darren.center.tank.Bullet;
-import com.darren.center.tank.Explode;
 import com.darren.center.tank.GameObject;
 import com.darren.center.tank.Tank;
 
@@ -24,6 +22,6 @@ public class TankTankCollide implements Collider<GameObject>{
                 tank2.backDir();
             }*/
         }
-        return false;
+        return true;
     }
 }

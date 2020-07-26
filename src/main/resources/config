@@ -7,3 +7,5 @@ gameHeight=960
 #fireStrategy
 goodFs=com.darren.center.tank.strategy.FourFireStategy
 badFs=com.darren.center.tank.strategy.DefaultFireStategy
+#colliders
+colliders=com.darren.center.tank.cor.BulletTankCollide,com.darren.center.tank.cor.TankTankCollide,com.darren.center.tank.cor.BulletWallCollide,com.darren.center.tank.cor.TankWallCollide

@@ -17,7 +17,7 @@ public class Tank extends GameObject{
     //坐标
     public int x = 200, y = 200;
     //上一次的坐标，当敌方坦克相撞时，回到此坐标
-    public int oldX, oldY;
+    int oldX, oldY;
 
     //方向
     public Dir dir = Dir.DOWN;
@@ -95,8 +95,8 @@ public class Tank extends GameObject{
 
     private void move() {
         //记录上一次的坐标
-        oldX = this.x;
-        oldY = this.y;
+        oldX = x;
+        oldY = y;
 
         //如果moving是false那么就静止
         if (!moving) return;
@@ -176,8 +176,8 @@ public class Tank extends GameObject{
      * 当敌方坦克相撞时, 回到上一次的坐标
      */
     public void backDir(){
-        this.x = this.oldX;
-        this.y = this.oldY;
+        x = oldX;
+        y = oldY;
     }
 
 
