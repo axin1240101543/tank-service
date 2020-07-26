@@ -9,7 +9,7 @@ public class Main {
         //new Thread(()->new Audio("audio/war1.wav").loop()).start();
 
         while (true){
-            Thread.sleep(25);
+            Thread.sleep(50);
             //默认调用paint方法
             tf.repaint();
         }

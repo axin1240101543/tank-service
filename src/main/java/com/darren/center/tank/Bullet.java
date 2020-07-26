@@ -12,7 +12,7 @@ import java.awt.*;
 public class Bullet extends GameObject{
 
     //坐标
-    private int x, y;
+    //private int x, y;
     //方向
     private Dir dir;
     //速度
@@ -95,5 +95,15 @@ public class Bullet extends GameObject{
 
     public void die() {
         living = false;
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 }

@@ -17,4 +17,7 @@ public abstract class GameObject {
 
     public abstract void paint(Graphics g);
 
+    public abstract int getWidth();
+    public abstract int getHeight();
+
 }

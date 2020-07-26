@@ -15,7 +15,7 @@ import java.util.Random;
 public class Tank extends GameObject{
 
     //坐标
-    public int x = 200, y = 200;
+    //public int x = 200, y = 200;
     //上一次的坐标，当敌方坦克相撞时，回到此坐标
     int oldX, oldY;
 
@@ -206,5 +206,15 @@ public class Tank extends GameObject{
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 }

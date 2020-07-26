@@ -12,7 +12,7 @@ import java.awt.*;
 public class Explode extends GameObject{
 
     //坐标
-    private int x, y;
+    //private int x, y;
     //大小
     public static int WIDTH = ResourceMgr.getInstance().explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().explodes[0].getHeight();
@@ -33,5 +33,15 @@ public class Explode extends GameObject{
         g.drawImage(ResourceMgr.getInstance().explodes[step++], x, y , null);
         if (step >= ResourceMgr.getInstance().explodes.length)
             GameModel.getInstance().remove(this);
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 }

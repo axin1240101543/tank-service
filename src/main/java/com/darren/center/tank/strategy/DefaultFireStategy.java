@@ -1,9 +1,8 @@
 package com.darren.center.tank.strategy;
 
-import com.darren.center.tank.Audio;
-import com.darren.center.tank.Bullet;
-import com.darren.center.tank.Group;
-import com.darren.center.tank.Tank;
+import com.darren.center.tank.*;
+import com.darren.center.tank.decorator.RectDecorator;
+import com.darren.center.tank.decorator.TailDecorator;
 
 /**
  * <h3>tank-service</h3>
@@ -19,7 +18,15 @@ public class DefaultFireStategy implements FireStategy{
         //计算子弹发出的位置
         int bx = tank.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int by = tank.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        new Bullet(bx, by, tank.dir, tank.group);
+
+        //new Bullet(bx, by, tank.dir, tank.group);
+        //TODO Bug? new Bullet把自己加了一遍
+        //给子弹加方框
+        //GameModel.getInstance().add(new RectDecorator(new Bullet(bx, by, tank.dir, tank.group)));
+
+        //给子弹加方框 + 加尾巴
+        GameModel.getInstance().add(new RectDecorator(new TailDecorator(new Bullet(bx, by, tank.dir, tank.group))));
+
         //子弹开火的声音
         if(tank.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
     }
