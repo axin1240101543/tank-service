@@ -28,7 +28,7 @@ public class BulletTankCollide implements Collider<GameObject>{
                 //计算坦克爆炸的位置
                 int ex = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
                 int ey = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-                new Explode(ex, ey, bullet.gm);
+                new Explode(ex, ey);
                 return false;
             }
         }else if (o1 instanceof Tank && o2 instanceof Bullet){

@@ -19,7 +19,7 @@ public class DefaultFireStategy implements FireStategy{
         //计算子弹发出的位置
         int bx = tank.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int by = tank.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        new Bullet(bx, by, tank.dir, tank.group, tank.gm);
+        new Bullet(bx, by, tank.dir, tank.group);
         //子弹开火的声音
         if(tank.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
     }

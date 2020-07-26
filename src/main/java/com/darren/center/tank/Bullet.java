@@ -21,7 +21,6 @@ public class Bullet extends GameObject{
     public static int WIDTH = ResourceMgr.getInstance().bulletU.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().bulletU.getHeight();
 
-    public GameModel gm;
     //因为子弹没有删除，会发生内存泄露，所以要判断子弹超出windows就删除子弹
     private boolean living = true;
     //将我方坦克子弹和敌方坦克子弹进行区分
@@ -32,12 +31,11 @@ public class Bullet extends GameObject{
     public Rectangle rBullet = new Rectangle();
 
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
         //对内部维护的Rectangle进行初始化
         this.rBullet.x = this.x;
         this.rBullet.y = this.y;
@@ -45,16 +43,15 @@ public class Bullet extends GameObject{
         this.rBullet.height = HEIGHT;
 
         //new出一颗子弹直接添加到子弹的集合中
-        gm.add(this);
+        GameModel.getInstance().add(this);
     }
 
     @Override
     public void paint(Graphics g) {
-        if (!living) gm.remove(this);
-        /*Color color = g.getColor();
-        g.setColor(Color.red);
-        g.fillOval(x, y, WIDTH, HEIGHT);
-        g.setColor(color);*/
+        if (!living){
+            GameModel.getInstance().remove(this);
+        }
+
         switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.getInstance().bulletL, x, y, null);
@@ -94,23 +91,6 @@ public class Bullet extends GameObject{
         this.rBullet.y = this.y;
 
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
-    }
-
-    public void collideWith(Tank tank) {
-        //自己不伤害自己
-        if (this.group == tank.getGroup()) return;
-
-        //TODO：用一个rectangle来记录子弹的位置
-        /*Rectangle rBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-        Rectangle rTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);*/
-        if (rBullet.intersects(tank.rTank)){
-            tank.die();
-            this.die();
-            //计算坦克爆炸的位置
-            int ex = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-            int ey = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gm.add(new Explode(ex, ey, gm));
-        }
     }
 
     public void die() {

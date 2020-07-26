@@ -25,8 +25,6 @@ public class Tank extends GameObject{
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
     //是否移动
     private boolean moving = true;
-    //将子弹传给windows
-    public GameModel gm = null;
     //大小
     public static int WIDTH = ResourceMgr.getInstance().goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().goodTankU.getHeight();
@@ -44,12 +42,11 @@ public class Tank extends GameObject{
     //发射子弹的策略
     FireStategy fireStategy;
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
 
         //对内部维护的Rectangle进行初始化
         this.rTank.x = this.x;
@@ -68,13 +65,15 @@ public class Tank extends GameObject{
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        GameModel.getInstance().add(this);
     }
 
     @Override
     public void paint(Graphics g) {
 
         //要移除list中的元素，否则会内存泄漏
-        if (!living) gm.remove(this);
+        if (!living) GameModel.getInstance().remove(this);
 
         switch (dir) {
             case LEFT:

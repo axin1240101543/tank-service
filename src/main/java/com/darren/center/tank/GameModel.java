@@ -1,6 +1,7 @@
 package com.darren.center.tank;
 
 import com.darren.center.tank.cor.ColliderChain;
+import com.sun.org.apache.xml.internal.security.Init;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,8 +18,13 @@ import java.util.List;
  **/
 public class GameModel {
 
+    private static final GameModel INSTANCE = new GameModel();
 
-    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
+    static {
+        INSTANCE.init();
+    }
+
+    Tank myTank;
 
     List<GameObject> objects = new ArrayList<>();
 
@@ -33,11 +39,16 @@ public class GameModel {
     }
 
 
-    public GameModel() {
+    private GameModel() { }
+
+    public void init(){
+        //初始化我方坦克
+        myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD);
+
         //初始化敌方坦克
         int initTankCount =  PropertyMgr.getInt("initTankCount");
         for (int i = 0; i < initTankCount; i++) {
-            add(new Tank(50 + i*80, 200, Dir.DOWN, Group.BAD, this));
+            new Tank(50 + i*80, 200, Dir.DOWN, Group.BAD);
         }
 
         //初始化墙
@@ -47,18 +58,15 @@ public class GameModel {
         add(new Wall(550, 300, 50, 200));
     }
 
+    public static GameModel getInstance(){
+        return INSTANCE;
+    }
+
     /**
      * 窗口重新绘制的时候自动调用
      * @param g
      */
     public void paint(Graphics g) {
-        /*Color color = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量：" + bullets.size(), 10, 60);
-        g.drawString("敌人的数量：" + tanks.size(), 10, 80);
-        g.drawString("爆炸的数量：" + explodes.size(), 10, 100);
-        g.setColor(color);*/
-
         //画出我方坦克
         myTank.paint(g);
 
@@ -69,7 +77,7 @@ public class GameModel {
 
         //碰撞检测：当子弹撞上坦克，子弹死亡，坦克死亡
         for (int i = 0; i < objects.size(); i++) {
-            for (int j = 1; j < objects.size(); j++) {
+            for (int j = i+1; j < objects.size(); j++) {
                 GameObject gameObject1 = objects.get(i);
                 GameObject gameObject2 = objects.get(j);
                 //第一种方式是直接遍历colliderChain

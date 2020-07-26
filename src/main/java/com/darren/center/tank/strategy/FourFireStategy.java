@@ -18,7 +18,7 @@ public class FourFireStategy implements FireStategy{
         int by = tank.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         Dir[] dirs = Dir.values();
         for (Dir dir : dirs) {
-            new Bullet(bx, by, dir, tank.group, tank.gm);
+            new Bullet(bx, by, dir, tank.group);
         }
         //子弹开火的声音
         if(tank.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
