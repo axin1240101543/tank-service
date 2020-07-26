@@ -17,10 +17,10 @@ public class TankTankCollide implements Collider<GameObject>{
         if (o1 instanceof Tank && o2 instanceof Tank){
             Tank tank1 = (Tank) o1;
             Tank tank2 = (Tank) o2;
-            /*if (tank1.rTank.intersects(tank2.rTank)){
+            if (tank1.rTank.intersects(tank2.rTank)){
                 tank1.backDir();
                 tank2.backDir();
-            }*/
+            }
         }
         return true;
     }

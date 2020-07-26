@@ -41,6 +41,10 @@ public class GameModel {
 
     private GameModel() { }
 
+    /**
+     * 考虑消除new GameModel需要new Tank, new Tank又需要new GameModel
+     * GameModel . init();
+     */
     public void init(){
         //初始化我方坦克
         myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD);
@@ -77,6 +81,7 @@ public class GameModel {
 
         //碰撞检测：当子弹撞上坦克，子弹死亡，坦克死亡
         for (int i = 0; i < objects.size(); i++) {
+            //i+1  第一次外层for循环，第一个对象和其他每个对象都进行比较，下一次循环的时候，这些对象都和第一个对象比较过了，不需要重新比较，所以只需要比较后面的对象即可
             for (int j = i+1; j < objects.size(); j++) {
                 GameObject gameObject1 = objects.get(i);
                 GameObject gameObject2 = objects.get(j);
