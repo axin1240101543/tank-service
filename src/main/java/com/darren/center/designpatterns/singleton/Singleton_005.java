@@ -1,4 +1,4 @@
-package com.darren.center.DesignPatterns.Singleton;
+package com.darren.center.designpatterns.singleton;
 
 /**
  * <h3>tank-service</h3>

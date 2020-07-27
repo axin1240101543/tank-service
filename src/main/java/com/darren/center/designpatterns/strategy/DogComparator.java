@@ -1,4 +1,4 @@
-package com.darren.center.DesignPatterns.Strategy;
+package com.darren.center.designpatterns.strategy;
 
 /**
  * <h3>tank-service</h3>
