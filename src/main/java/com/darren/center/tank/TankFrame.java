@@ -128,7 +128,8 @@ public class TankFrame extends Frame {
                     break;
                 //弹起*键打子弹
                 case KeyEvent.VK_Q:
-                    gm.gatMainTank().fire();
+                    //gm.gatMainTank().fire();
+                    gm.gatMainTank().handlerFireKey();
                     break;
                 default:
                     break;

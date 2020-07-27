@@ -19,13 +19,13 @@ public class DefaultFireStategy implements FireStategy{
         int bx = tank.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int by = tank.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
 
-        //new Bullet(bx, by, tank.dir, tank.group);
+        new Bullet(bx, by, tank.dir, tank.group);
         //TODO Bug? new Bullet把自己加了一遍
         //给子弹加方框
         //GameModel.getInstance().add(new RectDecorator(new Bullet(bx, by, tank.dir, tank.group)));
 
         //给子弹加方框 + 加尾巴
-        GameModel.getInstance().add(new RectDecorator(new TailDecorator(new Bullet(bx, by, tank.dir, tank.group))));
+        //GameModel.getInstance().add(new RectDecorator(new TailDecorator(new Bullet(bx, by, tank.dir, tank.group))));
 
         //子弹开火的声音
         if(tank.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();

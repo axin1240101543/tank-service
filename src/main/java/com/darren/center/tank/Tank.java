@@ -1,8 +1,13 @@
 package com.darren.center.tank;
 
+import com.darren.center.tank.observer.TankFireEvent;
+import com.darren.center.tank.observer.TankFireHandler;
+import com.darren.center.tank.observer.TankFireObserver;
 import com.darren.center.tank.strategy.FireStategy;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -217,4 +222,14 @@ public class Tank extends GameObject{
     public int getHeight() {
         return HEIGHT;
     }
+
+    private List<TankFireObserver> fireObservers = Arrays.asList(new TankFireHandler());
+
+    public void handlerFireKey(){
+        TankFireEvent event = new TankFireEvent(this);
+        for (TankFireObserver fireObserver : fireObservers) {
+            fireObserver.actionOnFire(event);
+        }
+    }
+
 }
