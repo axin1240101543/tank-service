@@ -1,7 +1,6 @@
 package com.darren.center.tank;
 
 import com.darren.center.tank.cor.ColliderChain;
-import com.sun.org.apache.xml.internal.security.Init;
 
 import java.awt.*;
 import java.util.ArrayList;
