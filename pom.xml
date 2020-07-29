@@ -1,56 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <groupId>com.darren.center</groupId>
+    <artifactId>tank-service</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
-  <groupId>com.darren.center</groupId>
-  <artifactId>tank-service</artifactId>
-  <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
 
-  <name>tank-service</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.1.6.RELEASE</version>
+        </dependency>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
-  </properties>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.4</version>
+        </dependency>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-    </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.2.12</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>5.1.6.RELEASE</version>
-    </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm-all</artifactId>
+            <version>3.3.1</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjweaver</artifactId>
-      <version>1.9.4</version>
-    </dependency>
+    </dependencies>
 
-    <dependency>
-      <groupId>cglib</groupId>
-      <artifactId>cglib</artifactId>
-      <version>2.2.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>asm</groupId>
-      <artifactId>asm-all</artifactId>
-      <version>3.3.1</version>
-    </dependency>
-
-  </dependencies>
-
-  <build>
-  </build>
 </project>
