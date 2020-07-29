@@ -7,12 +7,12 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
-    <bean id="tank" class="com.darren.center.designpatterns.proxy.spring.Tank"/>
-    <bean id="timeProxy" class="com.darren.center.designpatterns.proxy.spring.TimeProxy"/>
+    <bean id="tank" class="com.darren.center.designpatterns.proxy.spring.v1.Tank"/>
+    <bean id="timeProxy" class="com.darren.center.designpatterns.proxy.spring.v1.TimeProxy"/>
 
     <aop:config>
         <aop:aspect id="time" ref="timeProxy">
-            <aop:pointcut id="onmove" expression="execution(void com.darren.center.designpatterns.proxy.spring.Tank.move())"/>
+            <aop:pointcut id="onmove" expression="execution(void com.darren.center.designpatterns.proxy.spring.v1.Tank.move())"/>
             <aop:before method="before" pointcut-ref="onmove"/>
             <aop:after method="after" pointcut-ref="onmove"/>
         </aop:aspect>

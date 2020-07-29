@@ -1,4 +1,4 @@
-package com.darren.center.designpatterns.proxy.spring;
+package com.darren.center.designpatterns.proxy.spring.v1;
 
 import java.util.Random;
 
