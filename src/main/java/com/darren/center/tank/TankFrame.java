@@ -99,6 +99,14 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_RIGHT:
                     br = true;
                     break;
+                case KeyEvent.VK_S:
+                    //按S键存档
+                    gm.save();
+                    break;
+                case KeyEvent.VK_L:
+                    //按L键加载
+                    gm.load();
+                    break;
                 default:
                     break;
             }

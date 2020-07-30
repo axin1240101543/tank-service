@@ -3,6 +3,7 @@ package com.darren.center.tank;
 import com.darren.center.tank.cor.ColliderChain;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,5 +98,32 @@ public class GameModel {
      */
     public Tank gatMainTank() {
         return myTank;
+    }
+
+    /**
+     * 存档
+     */
+    public void save(){
+        File file = new File("tank.data");
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file))){
+            objectOutputStream.writeObject(myTank);
+            objectOutputStream.writeObject(objects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 加载存档
+     */
+    public void load(){
+        File file = new File("tank.data");
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))){
+            //存的时候什么顺序，取出来也要按顺序取
+            myTank = (Tank) objectInputStream.readObject();
+            objects = (List<GameObject>) objectInputStream.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

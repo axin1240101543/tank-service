@@ -1,6 +1,7 @@
 package com.darren.center.tank;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * <h3>tank-service</h3>
@@ -9,7 +10,7 @@ import java.awt.*;
  * @author : Darren
  * @date : 2020年07月24日 16:17:15
  **/
-public abstract class GameObject {
+public abstract class GameObject implements Serializable {
 
     //坐标
     public int x = 200, y = 200;
