@@ -3,7 +3,7 @@ package com.darren.center.designpatterns.singleton;
 /**
  * <h3>tank-service</h3>
  * <p>单例3</p>
- *
+ * 使用静态代码块
  * @author : Darren
  * @date : 2020年07月23日 14:57:04
  **/
