@@ -14,7 +14,7 @@ public class Singleton_005 {
     private Singleton_005() {
     }
 
-    public static synchronized Singleton_005 getInstance(){
+    public static Singleton_005 getInstance(){
         if (INSTANCE == null){
             synchronized (Singleton_005.class){
                 INSTANCE = new Singleton_005();
