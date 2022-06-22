@@ -1,4 +1,4 @@
-package com.darren.center.designpatterns.asm.v2;
+package com.darren.center.designpatterns.visitor.asm.v3;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
@@ -17,6 +17,8 @@ import static org.objectweb.asm.Opcodes.INVOKESTATIC;
  * <h3>tank-service</h3>
  * <p>通过ASM改变Class文件内容</p>
  *
+ * 实现动态代理
+ *
  * @author : Darren
  * @date : 2020年07月29日 19:13:17
  **/
@@ -25,7 +27,7 @@ public class ClassTransfromerTest {
     public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         //读取Tank.class文件
         ClassReader classReader = new ClassReader(ClassTransfromerTest.class.getClassLoader()
-                .getResourceAsStream("com/darren/center/designpatterns/asm/v2/Tank.class"));
+                .getResourceAsStream("com/darren/center/designpatterns/visitor/asm/v3/Tank.class"));
 
         ClassWriter classWriter = new ClassWriter(0);
         ClassVisitor classVisitor = new ClassVisitor(ASM4, classWriter) {
@@ -35,7 +37,7 @@ public class ClassTransfromerTest {
                 return new MethodVisitor(ASM4, methodVisitor) {
                     @Override
                     public void visitCode() {
-                        visitMethodInsn(INVOKESTATIC, "com/darren/center/designpatterns/asm/v2/TankTimeProxy",
+                        visitMethodInsn(INVOKESTATIC, "com/darren/center/designpatterns/visitor/asm/v3/TankTimeProxy",
                                 "before", "()V", false);
                         super.visitCode();
                     }
@@ -53,18 +55,18 @@ public class ClassTransfromerTest {
 
         //加载class，并创建实例
         MyClassLoader myClassLoader = new MyClassLoader();
-        myClassLoader.loadClass("com.darren.center.designpatterns.asm.v2.TankTimeProxy");
-        Class aClass = myClassLoader.defineClass("com.darren.center.designpatterns.asm.v2.Tank", b);
+        myClassLoader.loadClass("com.darren.center.designpatterns.visitor.asm.v3.TankTimeProxy");
+        Class aClass = myClassLoader.defineClass("com.darren.center.designpatterns.visitor.asm.v3.Tank", b);
         aClass.getConstructor().newInstance();
 
         //创建文件夹
         String path = (String)System.getProperties().get("user.dir");
-        File file = new File(path + "/com/darren/center/designpatterns/asm/v2/");
+        File file = new File(path + "/com/darren/center/designpatterns/visitor/asm/v2/");
         file.mkdirs();
 
         //写入文件
         FileOutputStream fileOutputStream = new FileOutputStream(
-                new File(path + "/com/darren/center/designpatterns/asm/v2/Tank_0.class" ));
+                new File(path + "/com/darren/center/designpatterns/visitor/asm/v2/Tank_0.class"));
         fileOutputStream.write(b);
         fileOutputStream.flush();
         fileOutputStream.close();

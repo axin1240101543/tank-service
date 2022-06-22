@@ -1,4 +1,4 @@
-package com.darren.center.designpatterns.asm.v1;
+package com.darren.center.designpatterns.visitor.asm.v1;
 
 
 import org.objectweb.asm.ClassReader;
@@ -12,7 +12,7 @@ import static org.objectweb.asm.Opcodes.ASM4;
 
 /**
  * <h3>tank-service</h3>
- * <p>通过ASM访问class文件的内容</p>
+ * <p>通过ASM访问Class文件的内容</p>
  *
  * @author : Darren
  * @date : 2020年07月29日 17:03:39
@@ -54,7 +54,7 @@ public class ClassPrinter extends ClassVisitor {
 
 
         ClassReader classReader1 = new ClassReader(ClassPrinter.class.getClassLoader()
-                .getResourceAsStream("com/darren/center/designpatterns/asm/T1.class"));
+                .getResourceAsStream("com/darren/center/designpatterns/visitor/asm/v1/T1.class"));
         classReader1.accept(classPrinter, 0);
     }
 }
